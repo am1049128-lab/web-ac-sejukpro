@@ -6,6 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
+  initLandscapeToggle();
   initMobileMenu();
   initNavbarScroll();
   initHeroAcSimulator();
@@ -16,6 +17,29 @@ document.addEventListener('DOMContentLoaded', () => {
   initFloatingWidget();
   initDateDefault();
 });
+
+/* ==========================================================================
+   0. Landscape / Boxed Layout Toggle
+   ========================================================================== */
+function initLandscapeToggle() {
+  const landscapeToggle = document.getElementById('landscapeToggle');
+  const body = document.body;
+
+  // Retrieve saved preference or default to landscape (null/'landscape' = landscape panoramic)
+  const savedLayout = localStorage.getItem('sejukpro-layout');
+  if (savedLayout === 'boxed') {
+    body.classList.add('boxed-mode');
+  }
+
+  if (landscapeToggle) {
+    landscapeToggle.addEventListener('click', () => {
+      body.classList.toggle('boxed-mode');
+      const isBoxed = body.classList.contains('boxed-mode');
+      localStorage.setItem('sejukpro-layout', isBoxed ? 'boxed' : 'landscape');
+      showToast(isBoxed ? 'Mode Tampilan: Normal (Boxed)' : 'Mode Tampilan: Landscape (Panoramic Wide)');
+    });
+  }
+}
 
 /* ==========================================================================
    1. Theme Toggle (Dark / Light Mode)
@@ -417,7 +441,7 @@ function initBtuCalculator() {
         `Mohon rekomendasi merk dan estimasi biaya pemasangan terbaik. Terima kasih!`;
 
       const encoded = encodeURIComponent(message);
-      window.open(`https://wa.me/6281234567890?text=${encoded}`, '_blank');
+      window.open(`https://wa.me/6281226818063?text=${encoded}`, '_blank');
     });
   }
 
@@ -713,7 +737,7 @@ function initBookingForm() {
       `Mohon konfirmasi jadwal ketersediaan teknisi. Terima kasih!`;
 
     const encodedWa = encodeURIComponent(waText);
-    const waUrl = `https://wa.me/6281234567890?text=${encodedWa}`;
+    const waUrl = `https://wa.me/6281226818063?text=${encodedWa}`;
 
     if (modalSummary) {
       modalSummary.innerHTML = `Terima kasih, <strong>${name}</strong>!<br>Pemesanan <strong>${service} (${unitCount})</strong> untuk tanggal <strong>${date}</strong> (${slot}) telah tercatat. Klik tombol hijau di bawah untuk langsung membuka chat WhatsApp dengan Customer Service kami.`;
@@ -804,7 +828,7 @@ function initFloatingWidget() {
 
 window.openWaWithText = function(text) {
   const encoded = encodeURIComponent(text);
-  window.open(`https://wa.me/6281234567890?text=${encoded}`, '_blank');
+  window.open(`https://wa.me/6281226818063?text=${encoded}`, '_blank');
   const popup = document.getElementById('waPopupCard');
   if (popup) popup.classList.remove('open');
 };
